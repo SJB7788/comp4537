@@ -15,7 +15,6 @@ class MemoryGame {
       });
       this.buttonArray.push(button);
     }
-    console.log(this.buttonArray);
 
     this.gameState = false;
     this.handleGameStart();
@@ -46,7 +45,6 @@ class MemoryGame {
   handleGameStart() {
     this.gameState = true;
     setTimeout(this.buttonArray.length * 1000);
-    console.log(this.buttonArray);
     this.scrambleButtons(this.buttonArray);
   }
 
@@ -84,7 +82,6 @@ class MemoryGame {
         const randomLeft = Math.random() * (containerWidth - 144);
         const top = `${randomTop}px`;
         const left = `${randomLeft}px`;
-        console.log(top, left);
 
         button.button.style.position = "absolute";
         button.moveX(left);
