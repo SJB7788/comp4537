@@ -1,0 +1,6 @@
+.game_message {
+    z-index: 100;
+}
+
+#game_container {
+    margin-top: 2em;}
