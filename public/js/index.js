@@ -74,9 +74,8 @@ class MemoryGame {
       }
 
       buttonArray.forEach((button) => {
-        const containerRect = this.container.getBoundingClientRect();
-        const containerWidth = containerRect.width;
-        const containerHeight = containerRect.height;
+        const containerWidth = window.innerHeight;
+        const containerHeight = window.innerWidth;
 
         const randomTop = Math.random() * (containerHeight - 74);
         const randomLeft = Math.random() * (containerWidth - 144);

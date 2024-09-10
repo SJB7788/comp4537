@@ -1,6 +1,8 @@
 .game_message {
+    position: relative;
     z-index: 100;
 }
 
 #game_container {
-    margin-top: 2em;}
+    margin-top: 2em;
+}
