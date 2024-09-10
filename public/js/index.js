@@ -30,7 +30,7 @@ class MemoryGame {
           this.buttonArray[this.buttonClicked.length - 1].text !=
           currentButton.text
         ) {
-            this.gameState = false;
+          this.gameState = false;
           this.handleGameOver(false);
         }
       }
@@ -44,8 +44,9 @@ class MemoryGame {
 
   handleGameStart() {
     this.gameState = true;
-    setTimeout(this.buttonArray.length * 1000);
-    this.scrambleButtons(this.buttonArray);
+    setTimeout(() => {
+      this.scrambleButtons(this.buttonArray);
+    }, this.buttonArray.length * 1000);
   }
 
   handleGameOver(win) {
