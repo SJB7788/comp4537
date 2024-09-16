@@ -33,3 +33,30 @@ body {
 .create_note_container {
     margin-top: 50px;
 }
+
+#index_wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#button_wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.index_hyperlink {
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: lightgray;
+    padding: 0.5em;
+    color: black;
+    text-decoration: none;
+    transition: background-color 0.1s ease-in;
+}
+
+.index_hyperlink:hover {
+    background-color: gray;
+}
