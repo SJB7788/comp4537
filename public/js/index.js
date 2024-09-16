@@ -1,5 +1,5 @@
 export class LocalStorage {
-  constructor(key) {}
+  constructor() {}
 
   replaceNoteArrayLocal(key, value) {
     localStorage.setItem(key, value);
@@ -17,6 +17,7 @@ export class Notepad {
 
     this.notepadContainer = container;
     this.noteArray = [];
+    this.lastUpdated;
   }
 
   addNote(note) {
@@ -56,18 +57,31 @@ export class Notepad {
   }
 
   updateNoteFromStorage() {
-    this.clearNotePad();
-    const notes = JSON.parse(this.storage.getNoteArrayLocal(this.storageKey)) || [];
-    
-    if (notes != null) {
-      notes.forEach((note) => {
-        this.createNote(note.text);
-      });
+    if (this.storage.getNoteArrayLocal(this.storageKey) !=  "") {
+      const notes = JSON.parse(this.storage.getNoteArrayLocal(this.storageKey));
+      this.clearNotePad();
+      
+      if (notes != null) {
+        notes.forEach((note) => {
+          this.createNote(note.text);
+        });
+      }
     }
+
+  }
+
+  updateNoteFromStorageOnInterval() {
+    setInterval(() => {
+      this.updateNoteFromStorage();
+      const date = new Date();
+      document.getElementById("updated_text").innerHTML = `Last Updated: ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} ${date.getHours() >= 12 ? 'PM' : 'AM'}`;
+    }, 2000)
   }
 
   clearNotePad() {
     this.notepadContainer.replaceChildren();
+    this.noteArray = [];
+    this.storage.replaceNoteArrayLocal(this.storageKey, this.noteArray);
   }
 }
 
