@@ -10,6 +10,7 @@ createNoteButton.innerHTML = writerPage.add;
 const container = document.querySelector(".notepad_container");
 const notepad = new Notepad(container, "key123");
 notepad.updateNoteFromStorage();
+notepad.writeNoteFromStorageOnInterval();
 
 refreshButton.addEventListener("click", () => notepad.updateNoteFromStorage());
 
