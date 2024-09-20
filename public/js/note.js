@@ -74,7 +74,7 @@ export class LocalStorage {
       setInterval(() => {
         this.updateNoteFromStorage();
         const date = new Date();
-        document.getElementById("updated_text").innerHTML = `Last Updated: ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} ${date.getHours() >= 12 ? 'PM' : 'AM'}`;
+        document.getElementById("updated_text").innerHTML = `Last Updated: ${date.toLocaleTimeString()} ${date.getHours() >= 12 ? 'PM' : 'AM'}`;
       }, 2000)
     }
   
