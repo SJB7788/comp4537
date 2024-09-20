@@ -60,3 +60,9 @@ body {
 .index_hyperlink:hover {
     background-color: gray;
 }
+
+#updated_text {
+    position: absolute;
+    top: 0px;
+    right: 5em;
+}
