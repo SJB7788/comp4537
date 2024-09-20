@@ -1,5 +1,5 @@
 import { Notepad } from './note.js'
-import { readerPage } from '/lang/messages/en/users.js';
+import { readerPage } from '../../lang/messages/en/users.js';
 
 const updatedText = document.getElementById("updated_text");
 updatedText.innerHTML = readerPage.lastUpdated;
