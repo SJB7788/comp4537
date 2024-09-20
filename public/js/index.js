@@ -1,4 +1,4 @@
-import { indexPage } from '../../lang/messages/en/users.js';
+import { indexPage } from '../lang/messages/en/users.js';
 
 const h1Lab1 = document.getElementById("title");
 const aReader = document.getElementById("index_reader");

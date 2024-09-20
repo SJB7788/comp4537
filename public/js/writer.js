@@ -1,5 +1,5 @@
 import { Notepad } from "./note.js";
-import { writerPage } from '../../lang/messages/en/users.js';
+import { writerPage } from '../lang/messages/en/users.js';
 
 const refreshButton = document.getElementById("refresh_button");
 const createNoteButton = document.getElementById("create_note_button");
