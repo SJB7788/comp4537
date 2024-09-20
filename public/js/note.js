@@ -98,17 +98,20 @@ export class Notepad {
     setInterval(() => {
       this.editNote();
       const date = new Date();
-      // document.getElementById(
-      //   "updated_text"
-      // ).innerHTML = `Last Updated: ${date.toLocaleTimeString()} ${
-      //   date.getHours() >= 12 ? "PM" : "AM"
-      // }`;
+      document.getElementById(
+        "updated_text"
+      ).innerHTML = `Last Updated: ${date.toLocaleTimeString()} ${
+        date.getHours() >= 12 ? "PM" : "AM"
+      }`;
     }, 2000);
   }
 
   updateNoteFromStorageOnInterval() {
     setInterval(() => {
       this.updateNoteFromStorage();
+      this.noteArray.forEach(note => {
+        note.note.textElement.disabled = true;
+    });
       const date = new Date();
       document.getElementById(
         "updated_text"

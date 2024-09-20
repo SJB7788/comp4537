@@ -12,7 +12,7 @@ export const readerPage = {
 
 // writer.html
 export const writerPage = {
-    refresh: "Refresh",
+    lastUpdated: "Last Updated: ",
     add: "Add"
 }
 
