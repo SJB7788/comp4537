@@ -13,7 +13,7 @@ const server = http.createServer((req, res) => {
     const addr = url.parse(req.url, true);
     const query = addr.query;
 
-    let responseString = `<h1 style='color: blue'>${lang} ${utils.getDate()}</h1>`;
+    let responseString = `<h1 style='color: blue'>${lang.dayString} ${utils.getDate()}</h1>`;
     responseString = responseString.replace("%1", query.name);
 
     res.writeHead(200, { "Content-Type": "text/html" });
@@ -29,15 +29,15 @@ const server = http.createServer((req, res) => {
       fs.appendFile("./file/text.txt", text, (err) => {
         if (err) {
           res.writeHead(404, { 'Content-Type': 'text/html' })
-          res.end("File does not exist");
+          res.end(lang.errorMessage);
           return;
         };
         res.writeHead(200, { "Content-Type": "text/html" });
-        res.end("Success");
+        res.end(lang.successMessage);
       });
       return;
     }
-    res.end("Text is required");
+    res.end(lang.textRequired);
   } 
   
   else if (req.url.startsWith("/COMP4537/labs/3/readFile")) {
@@ -49,7 +49,7 @@ const server = http.createServer((req, res) => {
       fs.readFile(`./file/${file}`, (err, data) => {
         if (err) {
           res.writeHead(404, { 'Content-Type': 'text/html' })
-          res.end("An Error Occured");
+          res.end(lang.errorMessage);
           return;
         }
         res.writeHead(200, { 'Content-Type': 'text/html' })
@@ -61,10 +61,10 @@ const server = http.createServer((req, res) => {
   
   else {
     res.writeHead(404, { "Content-Type": "text/html" });
-    res.end("404 Not Found");
+    res.end(lang["404Message"]);
   }
 });
 
 server.listen(8080, () => {
-  console.log("Server is listening on port 8080");
+  console.log(lang.serverListening);
 });
