@@ -1,53 +1,70 @@
-const utils = require("./public/modules/utils");
-const lang = require("./public/lang/en/en");
-const express = require("express");
-const path = require("path");
-const app = express();
+const http = require("http");
 const fs = require("fs");
-const cors = require("cors")
+const url = require("url");
+const lang = require("./public/lang/en/en");
+const utils = require("./public/modules/utils");
 
-app.use(express.static(path.join(__dirname, "/public")));
-app.use(cors());
+const server = http.createServer((req, res) => {
+  if (req.url === "/") {
+    res.end("Hello this is main page wassup");
+  } 
+  
+  else if (req.url.startsWith("/COMP4537/labs/3/getDate")) {
+    const addr = url.parse(req.url, true);
+    const query = addr.query;
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
+    let responseString = `<h1 style='color: blue'>${lang} ${utils.getDate()}</h1>`;
+    responseString = responseString.replace("%1", query.name);
 
-app.get("/COMP4537/labs/3/getDate/", (req, res) => {
-  const string = `<h1 style='color: blue'>${lang} ${utils.getDate()}</h1>`;
-  res.send(string.replace("%1", req.query.name));
-});
+    res.writeHead(200, { "Content-Type": "text/html" });
+    res.end(responseString);
+  } 
+  
+  else if (req.url.startsWith("/COMP4537/labs/3/writeFile")) {
+    const addr = url.parse(req.url, true);
+    const query = addr.query;
+    const text = query.text;
 
-app.get("/COMP4537/labs/3/writeFile/", (req, res) => {
-  const text = req.query.text;
-  if (text) {
-    fs.appendFile("./file/text.txt", text, (err) => {
-      // In case of a error throw err.
-      if (err) throw err;
-      res.send("Success");
-    });
-    return;
+    if (text) {
+      fs.appendFile("./file/text.txt", text, (err) => {
+        if (err) {
+          res.writeHead(404, { 'Content-Type': 'text/html' })
+          res.end("File does not exist");
+          return;
+        };
+        res.writeHead(200, { "Content-Type": "text/html" });
+        res.end("Success");
+      });
+      return;
+    }
+    res.end("Text is required");
+  } 
+  
+  else if (req.url.startsWith("/COMP4537/labs/3/readFile")) {
+    const addr = url.parse(req.url, true);
+    const query = addr.query;
+    const file = query.file;
+
+    if (file) {
+      fs.readFile(`./file/${file}`, (err, data) => {
+        if (err) {
+          res.writeHead(404, { 'Content-Type': 'text/html' })
+          res.end("An Error Occured");
+          return;
+        }
+        res.writeHead(200, { 'Content-Type': 'text/html' })
+        res.end(data.toString());
+      });
+      return;
+    }
+  } 
+  
+  else {
+    res.writeHead(404, { "Content-Type": "text/html" });
+    res.end("404 Not Found");
   }
-  res.send("Text is required");
 });
 
-app.get("/COMP4537/labs/3/readFile/", (req, res) => {
-  const file = req.query.file;
-  if (file) {
-    fs.readFile(`./file/${file}`, (err, data) => {
-      if (err) {
-        res.sendStatus(404);
-        return;
-      }
-      res.send(data.toString());
-    });
-    return;
-  }
-});
-
-
-const port = process.env.PORT || 8080;
-
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+server.listen(8080, () => {
+  console.log("Server is listening on port 8080");
 });
